@@ -1,0 +1,116 @@
+* {
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+.container {
+  margin:50px auto;
+  width:400px;
+  height:300px;
+  position: relative;
+}
+
+.box-wrapper {
+  position: absolute;
+  text-align: center;
+  width:100%;
+  height:100%;
+  padding:30px;
+  z-index: 99;
+}
+
+.box{
+  position: relative;
+  width:100%;
+  height:100%;
+  padding-top: 80px;
+  opacity: 0;
+  transition: all .8s;
+}
+.box::before{
+  content:'';
+  border:3px solid #fff;
+  border-width: 0 3px;
+  position: absolute;
+  width:100%;
+  height:0;
+  top:50%;
+  left:0;
+  box-sizing: border-box;
+  transition: all .8s;
+}
+.box::after {
+  content:'';
+  border:3px solid #fff;
+  border-width: 3px 0;
+  position: absolute;
+  width:0;
+  height:100%;
+  top:0;
+  left:50%;
+  box-sizing: border-box;
+  transition: all .8s;
+}
+.container:hover .box::before{
+	height: 100%;
+	top: 0;
+}
+.container:hover .box::after{
+	width: 100%;
+	left: 0;
+}
+.title {
+  	background-image: -webkit-linear-gradient(
+  						left,#D81159, #E53A40 10%, 
+  						#FFBC42 20%, #75D701 30%, 
+  						#30A9DE 40%,#D81159 50%, 
+  						#E53A40 60%, #FFBC42 70%, 
+  						#75D701 80%, #30A9DE 90%,
+  						#D81159
+  					);				
+  	-webkit-background-clip: text; /*将背景裁剪作为文本的填充色*/
+  	-webkit-text-fill-color: transparent;/*将文本本身颜色设置为透明*/
+  	color: transparent;
+  	background-size: 200% 100%;
+  	transform: translate(0,20px);
+  	animation: flowlight 5s linear infinite;/*infinite无限循环*/
+  	transition: all .8s;
+}
+.container:hover .img {
+   filter: blur(2px);
+   -webkit-filter: blur(2px);
+   -moz-filter: blur(2px);
+   -ms-filter: blur(2px);
+}
+.container:hover .title{
+	transform: translate(0);
+	opacity: 1;
+}
+.container:hover .box{
+	opacity: 1;
+}
+/*CSS3 background-clip:border-box|padding-box|content-box|text
+
+用于指定background是否包含content之外的border,padding。默认值为border-box，
+即background从包含border在内的地方开始渲染，IE的默认表现也等同于border-box。
+
+border-box:背景裁剪（背景从border(即包括border在内)开始绘制（渲染））;
+
+padding-box:背景裁剪（背景从padding(即包括padding在内)开始绘制）;
+
+content-box:背景裁剪（背景从content(即内容部分)开始绘制）;
+text:背景裁剪（将背景裁剪作为文本的填充色);*/
+/*当前只有-webkit浏览器支持*/
+
+/*流光动画的原理是将文字的背景色的宽度拉长至原来的两倍，
+而在background-image中我们设置了两份相同的颜色组，将背景拉长之后便只显示一份颜色组，
+超出背景宽度的颜色组通过动画改变背景色的位置background-position来实现流光效果。*/
+@keyframes flowlight{
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: -100% 0;
+	}
+}
